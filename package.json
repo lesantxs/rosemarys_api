@@ -1,0 +1,23 @@
+{
+  "name": "rosemarys_api",
+  "version": "1.0.0",
+  "description": "Projeto Modulo 04 -  Funcionarios",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lesantxs/rosemarys_api.git"
+  },
+  "author": "lesantxs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lesantxs/rosemarys_api/issues"
+  },
+  "homepage": "https://github.com/lesantxs/rosemarys_api#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "type": "module"
+}
