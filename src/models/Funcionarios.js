@@ -1,4 +1,4 @@
-class Funcionarios {
+class Funcionario {
   constructor(id, nome, funcao, email, senha, status, demissao) {
     this.id = id;
     this.nome = nome;
@@ -30,4 +30,5 @@ class Funcionarios {
     }
   };
 }
-export default Funcionarios;
+
+export default Funcionario;

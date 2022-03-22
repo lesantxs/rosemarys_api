@@ -5,11 +5,12 @@ import funcionarioController from "./controllers/funcionarios-controller.js";
 
 //middleware
 import generalMiddleware from "./middleware/general-middleware.js";
-const app = express();
-const port = 3000;
 
 //bd
 import bd from "./database/bd.js"
+
+const app = express();
+const port = 3000;
 
 app.use(express.json())
 
