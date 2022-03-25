@@ -1,89 +1,99 @@
-import Funcionario from "../models/Funcionarios.js";
+import Funcionario from "../models/Funcionario.js";
+// import res from "express/lib/response";
 
 const funcionarioController = (app, bd) => {
+  const funcionarioModel = new Funcionario(bd);
 
-  app.get("/funcionarios", (req, res) => {
-    const todosFuncionarios = bd.funcionarios
+  app.get("/funcionarios", async (req, res) => {
+    try {
+      const resposta = await funcionarioModel.pegaTodosFuncionarios();
+      res.status(200).json({
+        "funcionarios": resposta,
+        "erro": false,
+      });
+    } catch (error) {
+      res.status(400).json({
+        "mensagem": error.message,
+        "erro": true,
+      });
+    }
+  });
 
-    res.json({
-      "funcionarios": todosFuncionarios,
-      "erro": false
-    })
-  })
 
-  app.get("/funcionarios/email/:email"), (req, res)=>{
-    const email = req.params.email
+  app.get("/funcionarios/email/:email", async (req, res) => {
+    const email = req.params.email;
 
-    const funcionarioEncontrado = bd.funcionarios.filter(funcionario=>(funcionario.email == email))
+    try {
+      const resposta = await funcionarioModel.pegaUmFuncionario(email);
+      res.status(200).json({
+        "funcionarios": resposta,
+        "erro": false,
+      });
+    } catch (error) {
+      res.status(400).json({
+        "mensagem": error.message,
+        "erro": true,
+      });
+    }
+  });
 
-    res.json({
-      "funcionario": funcionarioEncontrado,
-      "erro": false
-    })
-  }
-
-  app.post("/funcionarios", (req, res) => {
+  
+  app.post('/funcionarios',async (req, res)=>{
     const body = req.body
-
-    try{
-      const novoFuncionario = new Funcionario(body.id, body.nome, body.funcao, body.email, body.senha, body.status, body.demissao)
-
-      bd.funcionarios.push(novoFuncionario)
-
-      res.json({
-        "msg": `Funcionário ${novoFuncionario.nome} admitido`,
-        "funcionario": novoFuncionario,
-        "erro": false
-      })
+    try {
+        const resposta = await funcionarioModel.insereFuncionario(body)
+        res.status(201)
+        .json({
+            "mensagem" : resposta,
+            "usuario": body,
+            "erro" : false
+        })
+    } catch (error) {
+        res.status(400)
+        .json({
+            "mensagem" : error.message,
+            "erro" : true
+        })
     }
-    catch(error){
-      res.json({
-        "msg": error.message,
-        "erro": true
-      })
+})
+
+
+  app.delete("/funcionarios/id/:id", async (req, res) => {
+    const id = req.params.id;
+
+    try {
+      const resposta = await funcionarioModel.deletaFuncionario(id);
+      res.status(200).json({
+        "mensagem": resposta,
+        "erro": false,
+      });
+    } catch (error) {
+      res.status(400).json({
+        "mensagem": error.message,
+        "erro": true,
+      });
     }
+  });
 
-  })
 
-  app.delete("/funcionarios/email/:email", (req, res)=>{
-    const email = req.params.email
+  app.put("/funcionarios/id/:id", async (req, res) => {
+    const id = req.params.id;
 
-    const novoDB = bd.funcionarios.filter(funcionario =>(funcionario.email !== email))
+    const body = req.body;
 
-    bd.funcionarios = novoDB
-
-    res.json({
-      "msg": `Email ${email} e seus dados deletados.`,
-      "erro": false
-    })
-  })
-
-  app.put("/funcionarios/email/:email", (req, res)=>{
-    const email = req.params.email
-
-    const body = req.body
-
-    try{
-      const atualizarFuncionario = new Funcionario(body.id, body.nome, body.funcao, body.email, body.senha, body.status, body.demissao)
-
-      bd.funcionarios = bd.funcionarios.map(funcionario => {
-        if(funcionario.email === email){
-          return atualizarFuncionario
-        }
-        return funcionario
-      })
-      res.json({
-        "msg": `Informações do ${atualizarFuncionario.email} atualizadas.`,
-        "funcionario": atualizarFuncionario,
-        "erro": false
-      })
-    } catch(error){
-      res.json({
-        "msg": error.message,
-        "erro": true
-      })
+    try {
+      const resposta = await funcionarioModel.atualizaFuncionario(id, body);
+      res.status(200).json({
+        "mensagem": resposta,
+        "funcionario": body,
+        "erro": false,
+      });
+    } catch (error) {
+      res.status(400).json({
+        "mensagem": error.message,
+        "erro": true,
+      });
     }
-  })
-} 
-
+  });
+};
 export default funcionarioController;
