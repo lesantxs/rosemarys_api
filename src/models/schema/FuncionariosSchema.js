@@ -39,10 +39,18 @@ class FuncionarioSchema {
   };
 
   _validaSenha = (senha) => {
-    if (senha.length >= 6) {
-      return senha;
+    const numeros = /([0-9])/;
+    const alfabeto = /([a-zA-Z])/
+    const especiais = /([~,!,@,#,$,%,^,&,*,_,+,=,?,>,<])/
+
+    if (senha.length < 8) {
+      throw new Error("A senha precisa ter mais de 8 caracteres.");
     } else {
-      throw new Error("A senha precisa ter mais de 6 caracteres");
+      if(senha.match(numeros) && senha.match(alfabeto) && senha.match(especiais)){
+        return senha
+      }else{
+        throw new Error("A senha precisa conter números e caracteres especiais.");
+      }
     }
   };
 
