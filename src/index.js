@@ -7,7 +7,7 @@ import funcionarioController from "./controllers/funcionarios-controller.js";
 import generalMiddleware from "./middleware/general-middleware.js";
 
 //bd
-import bd from "./database/bd.js"
+import database from "./database/sqlite-db.js";
 
 const app = express();
 const port = 3000;
@@ -18,7 +18,7 @@ app.use(express.json())
 generalMiddleware(app)
 
 //controller
-funcionarioController(app, bd);
+funcionarioController(app, database);
 
 app.listen(port, () => {
   console.log(`Servidor aberto na http://localhost:${port}/`);
