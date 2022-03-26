@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+
 class FuncionarioSchema {
   constructor(id, nome, cargo, email, senha, status) {
     this.id = id;
@@ -27,29 +29,42 @@ class FuncionarioSchema {
   };
 
   _validaEmail = (email) => {
+    const reg = /\S+\.+\S+@\S+\.\S+\.\S/;
     if (
       email == "" ||
-      email.indexOf("@") == -1 ||
-      email.indexOf("rosemaryss.com.br") == -1
+      email.indexOf("rosemaryss") == -1 ||
+      email.indexOf("@") > email.indexOf("rosemaryss")
     ) {
       throw new Error("Email com domínio ou formataçâo incorreta.");
     } else {
-      return email;
+      if (reg.test(email)) {
+        return email;
+      } else {
+        throw new Error("Email com domínio ou formataçâo incorreta.");
+      }
     }
   };
 
   _validaSenha = (senha) => {
     const numeros = /([0-9])/;
-    const alfabeto = /([a-zA-Z])/
-    const especiais = /([~,!,@,#,$,%,^,&,*,_,+,=,?,>,<])/
+    const alfabeto = /([a-zA-Z])/;
+    const especiais = /([~,!,@,#,$,%,^,&,*,_,+,=,?,>,<])/;
 
     if (senha.length < 8) {
-      throw new Error("A senha precisa ter mais de 8 caracteres.");
+      throw new Error(
+        "Campo obrigatório. Digite uma senha com no mínimo 8 caracteres."
+      );
     } else {
-      if(senha.match(numeros) && senha.match(alfabeto) && senha.match(especiais)){
-        return senha
-      }else{
-        throw new Error("A senha precisa conter números e caracteres especiais.");
+      if(
+        senha.match(numeros) &&
+        senha.match(alfabeto) &&
+        senha.match(especiais)
+      ) {
+        return bcrypt.hashSync(senha, 10)
+      } else {
+        throw new Error(
+          "A senha precisa conter números, letras e caracteres especiais."
+        );
       }
     }
   };
@@ -61,7 +76,7 @@ class FuncionarioSchema {
     if (status == "inativo" || status == "Inativo") {
       return status;
     } else {
-      throw new Error("Informe o status do funcionário.");
+      throw new Error("Campo obrogatório. Informe se o funcionário está ativo ou inativo.");
     }
   };
 }
