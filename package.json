@@ -4,9 +4,9 @@
   "description": "Projeto Modulo 04 -  Funcionarios",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./src/server.js",
-    "database": "node ./src/database/create-and-populate.js"
+    "database": "node ./src/database/create-and-populate.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
@@ -23,8 +23,10 @@
     "body-parser": "^1.19.2",
     "cors": "^2.8.5",
     "express": "^4.17.3",
+    "jest": "^27.5.1",
     "nodemon": "^2.0.15",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "supertest": "^6.2.2"
   },
   "type": "module"
 }
