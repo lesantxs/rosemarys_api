@@ -19,8 +19,24 @@ const funcionarioController = (app, bd) => {
     }
   });
 
+  app.get("/funcionario/id/:id", async (req, res) => {
+    const id = req.params.id;
 
-  app.get("/funcionarios/email/:email", async (req, res) => {
+    try {
+      const resposta = await funcionarioModel.pegaUmFuncionarioId(id);
+      res.status(200).json({
+        "funcionarios": resposta,
+        "erro": false,
+      });
+    } catch (error) {
+      res.status(400).json({
+        "mensagem": error.message,
+        "erro": true,
+      });
+    }
+  });
+
+  app.get("/funcionario/email/:email", async (req, res) => {
     const email = req.params.email;
 
     try {
@@ -38,14 +54,14 @@ const funcionarioController = (app, bd) => {
   });
 
   
-  app.post('/funcionarios',async (req, res)=>{
+  app.post('/funcionario',async (req, res)=>{
     const body = req.body
     try {
         const resposta = await funcionarioModel.insereFuncionario(body)
         res.status(201)
         .json({
             "mensagem" : resposta,
-            "usuario": body,
+            "funcionario": body,
             "erro" : false
         })
     } catch (error) {
@@ -58,7 +74,7 @@ const funcionarioController = (app, bd) => {
 })
 
 
-  app.delete("/funcionarios/id/:id", async (req, res) => {
+  app.delete("/funcionario/id/:id", async (req, res) => {
     const id = req.params.id;
 
     try {
@@ -76,7 +92,7 @@ const funcionarioController = (app, bd) => {
   });
 
 
-  app.put("/funcionarios/id/:id", async (req, res) => {
+  app.put("/funcionario/id/:id", async (req, res) => {
     const id = req.params.id;
 
     const body = req.body;
@@ -86,12 +102,12 @@ const funcionarioController = (app, bd) => {
       res.status(200).json({
         "mensagem": resposta,
         "funcionario": body,
-        "erro": false,
+        "erro": false
       });
     } catch (error) {
       res.status(400).json({
         "mensagem": error.message,
-        "erro": true,
+        "erro": true
       });
     }
   });
