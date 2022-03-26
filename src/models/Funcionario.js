@@ -14,6 +14,14 @@ class Funcionario {
     }
   };
 
+  pegaUmFuncionarioId = async (id) => {
+    try {
+      return await this.dao.pegaUmFuncionarioId(id);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   pegaUmFuncionario = async (email) => {
     try {
       return await this.dao.pegaUmFuncionario(email);
@@ -37,17 +45,17 @@ class Funcionario {
     } catch (error) {
       throw error;
     }
-  }
+  };
 
-  deletaFuncionario = async (id)=>{
+  deletaFuncionario = async (id) => {
     try {
-        await this._verificaFuncionario(id)
-        
-        return await this.dao.deletaFuncionario(id)
+      await this._verificaFuncionario(id);
+
+      return await this.dao.deletaFuncionario(id);
     } catch (error) {
-        throw error
+      throw error;
     }
-}
+  };
 
   atualizaFuncionario = async (id, funcionario) => {
     try {
@@ -69,12 +77,12 @@ class Funcionario {
     }
   };
 
-  _verificaFuncionario = async (id)=>{
+  _verificaFuncionario = async (id) => {
     const resposta = await this.dao.pegaUmFuncionarioId(id)
-    if(resposta.length === 0){
-        throw new Error(`Funcionário de id ${id} não existe`)
+    if(resposta.length === 0) {
+      throw new Error(`Funcionário de id ${id} não existe`)
     }
-}
+  };
 }
 
 export default Funcionario;
