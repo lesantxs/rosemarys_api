@@ -217,7 +217,7 @@ npm start
 
 ## Elaboração
 
-Letícia Santos do Carmo
+Projeto realizado por Letícia Santos do Carmo
 
 [![Linkedin Badge](https://img.shields.io/badge/-Linkedin-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/leonardo-chaves-b6544b229/)](https://www.linkedin.com/in/let%C3%ADcia-santos-772358225/)
 
