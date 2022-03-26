@@ -36,15 +36,9 @@ class FuncionarioDAO{
             id,
             (error, rows)=>{
                 if(error){
-                    reject({
-                        "mensagem": error.message,
-                        "erro": true
-                    })
+                    reject(error)
                 }else{
-                    resolve({
-                        "funcionario": rows,
-                        "erro": false
-                    })
+                    resolve(rows)
                 }
             })
         })
