@@ -8,16 +8,16 @@ describe("GET /funcionarios", () => {
   });
 });
 
-describe("GET /funcionarios/id/:id", () => {
-    it("Deve retornar todos os funcionários", async () => {
-      const res = await request(app).get("/funcionarios/id/7");
+describe("GET /funcionario/id/:id", () => {
+    it("Deve retornar todos o funcionário", async () => {
+      const res = await request(app).get("/funcionario/id/3");
       expect(res.statusCode).toEqual(200);
     });
   });
 
-  describe("GET /funcionarios/email/:email", () => {
-    it("Deve retornar todos os funcionários", async () => {
-      const res = await request(app).get("/funcionarios/email/paulo.goncalves@rosemaryss.com.br");
+  describe("GET /funcionario/email/:email", () => {
+    it("Deve retornar todos o funcionário", async () => {
+      const res = await request(app).get("/funcionario/email/maria.andrade@rosemaryss.com.br");
       expect(res.statusCode).toEqual(200);
     });
   });
