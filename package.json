@@ -4,7 +4,7 @@
   "description": "Projeto Modulo 04 -  Funcionarios",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/server.js",
+    "start": "node ./src/server.js",
     "database": "node ./src/database/create-and-populate.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
