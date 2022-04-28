@@ -45,6 +45,18 @@ class FuncionarioDAO{
 
     }
 
+    pegaFuncionariosLogin= (email, senha)=>{
+        return new Promise((resolve, reject)=>{
+            this.db.all('SELECT * FROM FUNCIONARIOS WHERE EMAIL = ? AND SENHA = ?', email, senha, (error, rows)=>{
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(rows)
+                }
+            })
+        })
+    }
+
     insereFuncionario = (novoFuncionario) =>{
 
         return new Promise((resolve, reject)=>{

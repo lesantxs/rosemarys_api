@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+
 
 class FuncionarioSchema {
   constructor(id, nome, cargo, email, senha, status) {
@@ -60,7 +60,7 @@ class FuncionarioSchema {
         senha.match(alfabeto) &&
         senha.match(especiais)
       ) {
-        return bcrypt.hashSync(senha, 10)
+        return senha
       } else {
         throw new Error(
           "A senha precisa conter números, letras e caracteres especiais."

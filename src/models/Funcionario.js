@@ -83,6 +83,11 @@ class Funcionario {
       throw new Error(`Funcionário de id ${id} não existe`)
     }
   };
+
+  _verificaLogin = async (email, senha) => {
+    return await this.dao.pegaFuncionariosLogin(email, senha)
+
+  };
 }
 
 export default Funcionario;

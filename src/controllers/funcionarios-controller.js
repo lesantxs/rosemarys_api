@@ -73,6 +73,30 @@ const funcionarioController = (app, bd) => {
     }
 })
 
+app.post('/funcionario/login',async (req, res)=>{
+  const {email, senha} = req.body
+ 
+  try {
+      const resposta = await funcionarioModel._verificaLogin(email, senha)
+
+      if (!resposta) {
+        res.status(422).json({"message": "Email ou senha estão incorretos, verifique e tente novamente"})
+        return
+      }
+      res.status(201)
+      .json({
+          "mensagem" : "entrou",
+          "cliente": resposta
+
+      })
+  } catch (error) {
+      res.status(400)
+      .json({
+          "mensagem" : error.message,
+          "erro" : true
+      })
+  }
+}) 
 
   app.delete("/funcionario/id/:id", async (req, res) => {
     const id = req.params.id;
