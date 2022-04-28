@@ -79,7 +79,7 @@ app.post('/funcionario/login',async (req, res)=>{
   try {
       const resposta = await funcionarioModel._verificaLogin(email, senha)
 
-      if (!resposta) {
+      if (resposta.length === 0) {
         res.status(422).json({"message": "Email ou senha estão incorretos, verifique e tente novamente"})
         return
       }
